@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة أسئلة القيامة الكبرى</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Amiri", serif;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            background: linear-gradient(180deg, #e3f6fc, #c8f8e4, #ffffff);
+            color: #333;
+            text-align: center;
+        }
+
+        .game-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-card {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+            background: #dfeff2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .question-card h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #2a3b4c;
+        }
+
+        .question-card button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            background: #6cb2eb;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .question-card button:hover {
+            background: #4b9bd1;
+            transform: scale(1.03);
+        }
+
+        .result-screen {
+            display: none;
+            padding: 20px;
+            background: #d4f3c2;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-screen h2 {
+            color: green;
+        }
+
+        .result-screen p {
+            font-size: 1.3em;
+            margin: 15px 0;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .answer-review {
+            text-align: left;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .answer-review.correct {
+            border-left: 5px solid green;
+        }
+
+        .answer-review.incorrect {
+            border-left: 5px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>لعبة أسئلة القيامة الكبرى</h1>
+
+        <!-- السؤال الأول -->
+        <div class="question-card active" id="question1">
+            <h2>1. سمي يوم القيامة بالساعة:</h2>
+            <button onclick="checkAnswer(1, 'لقربها')">لقربها</button>
+            <button onclick="checkAnswer(1, 'تنبيهًا على ما فيها من الكائنات العظام')">تنبيهًا على ما فيها من الكائنات العظام</button>
+            <button onclick="checkAnswer(1, 'لأنها تأتي بغتة في ساعة')">لأنها تأتي بغتة في ساعة</button>
+            <button onclick="checkAnswer(1, 'جميع ما سبق')">جميع ما سبق</button>
+        </div>
+
+        <!-- السؤال الثاني -->
+        <div class="question-card" id="question2">
+            <h2>2. الطامَّة هي النفخة ..... بينما الصاخَّة هي النفخة .....:</h2>
+            <button onclick="checkAnswer(2, 'الأولى، الثانية')">الأولى، الثانية</button>
+            <button onclick="checkAnswer(2, 'الثانية، الأولى')">الثانية، الأولى</button>
+        </div>
+
+        <!-- السؤال الثالث -->
+        <div class="question-card" id="question3">
+            <h2>3. الطامة في اللغة من:</h2>
+            <button onclick="checkAnswer(3, 'طمّ الشيء إذا علا وغلب')">طمّ الشيء إذا علا وغلب</button>
+            <button onclick="checkAnswer(3, 'طمّ فلان إذا أصمه')">طمّ فلان إذا أصمه</button>
+        </div>
+
+        <!-- السؤال الرابع -->
+        <div class="question-card" id="question4">
+            <h2>4. سمي يوم القيامة بيوم الحسرة وتحسر ..... فيه:</h2>
+            <button onclick="checkAnswer(4, 'الكفار')">الكفار</button>
+            <button onclick="checkAnswer(4, 'المؤمنين')">المؤمنين</button>
+            <button onclick="checkAnswer(4, 'كليهما')">كليهما</button>
+        </div>
+
+        <!-- السؤال الخامس -->
+        <div class="question-card" id="question5">
+            <h2>5. معنى الحساب:</h2>
+            <button onclick="checkAnswer(5, 'أن يحاسب الله الخلق على أعمالهم من خير وشر')">أن يحاسب الله الخلق على أعمالهم من خير وشر</button>
+            <button onclick="checkAnswer(5, 'أن يحاسب الله الخلق على ما أنعم عليهم من النعم')">أن يحاسب الله الخلق على ما أنعم عليهم من النعم</button>
+            <button onclick="checkAnswer(5, 'كليهما')">كليهما</button>
+        </div>
+
+        <!-- السؤال السادس -->
+        <div class="question-card" id="question6">
+            <h2>6. النفخ في الصور المقصود به:</h2>
+            <button onclick="checkAnswer(6, 'قرن ينفخ فيه الملك')">قرن ينفخ فيه الملك</button>
+            <button onclick="checkAnswer(6, 'النفخ في الأجساد لتعاد فيها الأرواح')">النفخ في الأجساد لتعاد فيها الأرواح</button>
+        </div>
+
+        <!-- السؤال السابع -->
+        <div class="question-card" id="question7">
+            <h2>7. الملك الذي ينفخ في الصور:</h2>
+            <button onclick="checkAnswer(7, 'جبريل')">جبريل</button>
+            <button onclick="checkAnswer(7, 'إسرافيل')">إسرافيل</button>
+        </div>
+
+        <!-- السؤال الثامن -->
+        <div class="question-card" id="question8">
+            <h2>8. تقوم الساعة في يوم:</h2>
+            <button onclick="checkAnswer(8, 'عرفة')">عرفة</button>
+            <button onclick="checkAnswer(8, 'جمعة')">جمعة</button>
+            <button onclick="checkAnswer(8, 'سبت')">سبت</button>
+            <button onclick="checkAnswer(8, 'ليس في ذلك حديث صحيح')">ليس في ذلك حديث صحيح</button>
+        </div>
+
+        <!-- السؤال التاسع -->
+        <div class="question-card" id="question9">
+            <h2>9. ينفخ الملك -على الأصح- في الصور:</h2>
+            <button onclick="checkAnswer(9, 'مرة واحدة')">مرة واحدة</button>
+            <button onclick="checkAnswer(9, 'مرتين')">مرتين</button>
+            <button onclick="checkAnswer(9, 'ثلاث مرات')">ثلاث مرات</button>
+        </div>
+
+        <!-- السؤال العاشر -->
+        <div class="question-card" id="question10">
+            <h2>10. ذهب ابن حزم إلى أن نفخات يوم القيامة:</h2>
+            <button onclick="checkAnswer(10, 'اثنتان')">اثنتان</button>
+            <button onclick="checkAnswer(10, 'ثلاث')">ثلاث</button>
+            <button onclick="checkAnswer(10, 'أربع')">أربع</button>
+        </div>
+
+        <!-- شاشة النتيجة -->
+        <div class="result-screen" id="result-screen">
+            <h2>لقد انتهيت من اللعبة!</h2>
+            <p id="final-score"></p>
+            <p id="motivational-message"></p>
+            <div id="answers-review"></div>
+            <button onclick="restartGame()">العب مرة أخرى</button>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            1: "جميع ما سبق",
+            2: "الثانية، الأولى",
+            3: "طمّ الشيء إذا علا وغلب",
+            4: "كليهما",
+            5: "كليهما",
+            6: "قرن ينفخ فيه الملك",
+            7: "إسرافيل",
+            8: "جمعة",
+            9: "مرتين",
+            10: "أربع"
+        };
+
+        let currentQuestion = 1;
+        let score = 0;
+        const userAnswers = {};
+
+        function checkAnswer(questionNumber, answer) {
+            userAnswers[questionNumber] = answer;
+
+            if (answer === correctAnswers[questionNumber]) {
+                score++;
+            }
+
+            moveToNextQuestion();
+        }
+
+        function moveToNextQuestion() {
+            const currentCard = document.getElementById(`question${currentQuestion}`);
+            currentCard.classList.remove("active");
+
+            currentQuestion++;
+            const nextCard = document.getElementById(`question${currentQuestion}`);
+
+            if (nextCard) {
+                nextCard.classList.add("active");
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const resultScreen = document.getElementById("result-screen");
+            resultScreen.style.display = "block";
+
+            const finalScore = document.getElementById("final-score");
+            finalScore.textContent = `لقد حصلت على ${score} من ${Object.keys(correctAnswers).length} إجابات صحيحة.`;
+
+            const motivationalMessage = document.getElementById("motivational-message");
+            if (score === Object.keys(correctAnswers).length) {
+                motivationalMessage.textContent = "ما شاء الله! إجاباتك ممتازة، واصل في طريقك نحو العلم واليقين. 🌟";
+            } else if (score > Object.keys(correctAnswers).length / 2) {
+                motivationalMessage.textContent = "أداء رائع! استمر في السعي لزيادة العلم واليقين. 🚀";
+            } else {
+                motivationalMessage.textContent = "لا بأس، اخطُ خطوة جديدة وستحقق النجاح، فطريق العلم يحتاج للصبر. 🌱";
+            }
+
+            const answersReview = document.getElementById("answers-review");
+            answersReview.innerHTML = Object.keys(correctAnswers).map((questionNumber) => {
+                const userAnswer = userAnswers[questionNumber];
+                const correctAnswer = correctAnswers[questionNumber];
+                const isCorrect = userAnswer === correctAnswer;
+                return `
+                    <div class="answer-review ${isCorrect ? "correct" : "incorrect"}">
+                        <p><strong>السؤال ${questionNumber}:</strong> ${isCorrect ? "إجابة صحيحة" : "إجابة خاطئة"}</p>
+                        <p>إجابتك: ${userAnswer || "لم تُجب"}</p>
+                        <p>الإجابة الصحيحة: ${correctAnswer}</p>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function restartGame() {
+            score = 0;
+            currentQuestion = 1;
+            Object.keys(userAnswers).forEach((key) => delete userAnswers[key]);
+
+            document.querySelectorAll(".question-card").forEach((card) => {
+                card.classList.remove("active");
+            });
+
+            document.getElementById("result-screen").style.display = "none";
+            document.getElementById("question1").classList.add("active");
+        }
+    </script>
+</body>
+</html>

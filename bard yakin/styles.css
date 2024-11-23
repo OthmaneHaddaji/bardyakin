@@ -1,0 +1,63 @@
+/* إعداد الخطوط والألوان */
+body {
+    font-family: "Amiri", serif;
+    margin: 0;
+    padding: 0;
+    direction: rtl;
+    background-color: #f0f8ff; /* أزرق فاتح */
+    color: #2a3b4c; /* لون النص */
+}
+
+/* تنسيق العنوان */
+.main-header {
+    text-align: center;
+    background-color: #2a9d8f; /* لون أخضر فاتح */
+    color: white;
+    padding: 20px 10px;
+}
+
+.main-header h1 {
+    margin: 0;
+    font-size: 2.5em;
+}
+
+.main-header p {
+    margin: 10px 0 0;
+    font-size: 1.2em;
+}
+
+/* الأزرار */
+.buttons-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px 0;
+    gap: 20px;
+}
+
+.button {
+    display: inline-block;
+    background-color: #2a9d8f; /* لون أخضر فاتح */
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: bold;
+    padding: 20px 30px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.button:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    background-color: #1e7e68; /* لون أغمق قليلاً عند التحريك */
+}
+
+/* تنسيق الفوتر */
+footer {
+    text-align: center;
+    background-color: #2a3b4c; /* لون داكن */
+    color: white;
+    padding: 10px 0;
+}

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لعبة أسئلة القيامة الكبرى - الورد الثالث</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: "Amiri", serif;
+            margin: 0;
+            padding: 0;
+            direction: rtl;
+            background: linear-gradient(180deg, #e3f6fc, #c8f8e4, #ffffff);
+            color: #333;
+            text-align: center;
+        }
+
+        .game-container {
+            max-width: 700px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+
+        .question-card {
+            display: none;
+            padding: 20px;
+            border-radius: 10px;
+            background: #dfeff2;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .question-card.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .question-card h2 {
+            margin-bottom: 20px;
+            font-size: 1.5em;
+            color: #2a3b4c;
+        }
+
+        .question-card button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            background: #6cb2eb;
+            color: white;
+            font-size: 1.2em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .question-card button:hover {
+            background: #4b9bd1;
+            transform: scale(1.03);
+        }
+
+        .result-screen {
+            display: none;
+            padding: 20px;
+            background: #d4f3c2;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-screen h2 {
+            color: green;
+        }
+
+        .result-screen p {
+            font-size: 1.3em;
+            margin: 15px 0;
+            animation: slideIn 0.5s ease-in-out;
+        }
+
+        .answer-review {
+            text-align: left;
+            margin: 15px 0;
+            padding: 10px;
+            background: #f0f8ff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .answer-review.correct {
+            border-left: 5px solid green;
+        }
+
+        .answer-review.incorrect {
+            border-left: 5px solid red;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-container">
+        <h1>لعبة أسئلة القيامة الكبرى - الورد الثالث</h1>
+
+        <!-- الأسئلة -->
+        <div class="question-card active" id="question1">
+            <h2>1. من أساليب الإخبار بوقوع يوم القيامة:</h2>
+            <button onclick="checkAnswer(1, 'إقسام الله -تبارك وتعالى- على وقوعه.')">إقسام الله -تبارك وتعالى- على وقوعه.</button>
+            <button onclick="checkAnswer(1, 'ذم المكذبين بالمعاد، ومدح المؤمنين.')">ذم المكذبين بالمعاد، ومدح المؤمنين.</button>
+            <button onclick="checkAnswer(1, 'الإخبار بأنه وعدٌ صادق، وأجل لا شك فيه.')">الإخبار بأنه وعدٌ صادق، وأجل لا شك فيه.</button>
+            <button onclick="checkAnswer(1, 'جميع ما سبق')">جميع ما سبق</button>
+        </div>
+
+        <div class="question-card" id="question2">
+            <h2>2. في قوله تعالى: {فَذَرۡهُمۡ یَخُوضُوا۟ وَیَلۡعَبُوا۟ حَتَّىٰ یُلَـٰقُوا۟ یَوۡمَهُمُ ٱلَّذِی یُوعَدُونَ}، تضمنت هذه الآية أسلوبًا في الإخبار عن يوم القيامة، مضمونه أنه وعد صادق، وخبر لازم:</h2>
+            <button onclick="checkAnswer(2, 'العبارة صحيحة')">العبارة صحيحة</button>
+            <button onclick="checkAnswer(2, 'العبارة خاطئة')">العبارة خاطئة</button>
+        </div>
+
+        <div class="question-card" id="question3">
+            <h2>3. من أدلّة البعث والنشور:</h2>
+            <button onclick="checkAnswer(3, 'الاستدلال على النشأة الأخرى بالنشأة الأولى')">الاستدلال على النشأة الأخرى بالنشأة الأولى</button>
+            <button onclick="checkAnswer(3, 'الاستدلال على النشأة الأولى بالنشأة الأخرى')">الاستدلال على النشأة الأولى بالنشأة الأخرى</button>
+        </div>
+
+        <div class="question-card" id="question4">
+            <h2>4. قال تعالى: ﴿أَوَلَيسَ الَّذي خَلَقَ السَّماواتِ وَالأَرضَ بِقادِرٍ عَلى أَن يَخلُقَ مِثلَهُم﴾، دلت هذه الآية على أن:</h2>
+            <button onclick="checkAnswer(4, 'الله قادر على تبديل الخلق من حال إلى حال')">الله قادر على تبديل الخلق من حال إلى حال</button>
+            <button onclick="checkAnswer(4, 'الله الذي خلق الأعظم قادر على خلق ما دونه')">الله الذي خلق الأعظم قادر على خلق ما دونه</button>
+        </div>
+
+        <div class="question-card" id="question5">
+            <h2>5. قال تعالى: {وَقَالُوۤا۟ أَءِذَا ضَلَلۡنَا فِی ٱلۡأَرۡضِ أَءِنَّا لَفِی خَلۡقࣲ جَدِیدِۭ}، المراد "بالضلال" في هذه الآية:</h2>
+            <button onclick="checkAnswer(5, 'الغواية والمعصية')">الغواية والمعصية</button>
+            <button onclick="checkAnswer(5, 'تحلل أجسادهم، واختلاطها بتراب الأرض')">تحلل أجسادهم، واختلاطها بتراب الأرض</button>
+        </div>
+
+        <div class="question-card" id="question6">
+            <h2>6. قال تعالى: {یَـٰقَوۡمِ ٱعۡبُدُوا۟ ٱللَّهَ وَٱرۡجُوا۟ ٱلۡیَوۡمَ ٱلۡـَٔاخِرَ}، قالها ........ لقومه:</h2>
+            <button onclick="checkAnswer(6, 'هود -عليه السلام-')">هود -عليه السلام-</button>
+            <button onclick="checkAnswer(6, 'شعيب -عليه السلام-')">شعيب -عليه السلام-</button>
+            <button onclick="checkAnswer(6, 'موسى -عليه السلام-')">موسى -عليه السلام-</button>
+            <button onclick="checkAnswer(6, 'إبراهيم -عليه السلام-')">إبراهيم -عليه السلام-</button>
+        </div>
+
+        <div class="question-card" id="question7">
+            <h2>7. من الأمثلة الدالة على إحياء الموتى في الحياة الدنيا:</h2>
+            <button onclick="checkAnswer(7, 'الألوف الذين فروا من ديارهم؛ خشية الموت')">الألوف الذين فروا من ديارهم؛ خشية الموت</button>
+            <button onclick="checkAnswer(7, 'أصحاب الكهف')">أصحاب الكهف</button>
+            <button onclick="checkAnswer(7, 'عصا موسى-عليه السلام-')">عصا موسى-عليه السلام-</button>
+            <button onclick="checkAnswer(7, 'جميع ما سبق')">جميع ما سبق</button>
+        </div>
+
+        <div class="question-card" id="question8">
+            <h2>8. جميع الكفار عندما يُسألون عن ورودهم النار، لا يقرون بأن رسلهم خوفتهم لقاء ذلك اليوم:</h2>
+            <button onclick="checkAnswer(8, 'العبارة صحيحة')">العبارة صحيحة</button>
+            <button onclick="checkAnswer(8, 'العبارة خاطئة')">العبارة خاطئة</button>
+        </div>
+
+        <div class="question-card" id="question9">
+            <h2>9. لم تزخر الكتب السماوية التي أنزلها الله بذكر اليوم الآخر، سوى القرآن الكريم:</h2>
+            <button onclick="checkAnswer(9, 'العبارة صحيحة')">العبارة صحيحة</button>
+            <button onclick="checkAnswer(9, 'العبارة خاطئة')">العبارة خاطئة</button>
+        </div>
+
+        <div class="question-card" id="question10">
+            <h2>10. انقطاع علائق الأنساب يوم القيامة:</h2>
+            <button onclick="checkAnswer(10, 'من أدلة أهوال يوم القيامة')">من أدلة أهوال يوم القيامة</button>
+            <button onclick="checkAnswer(10, 'من معالم أهوال يوم القيامة')">من معالم أهوال يوم القيامة</button>
+        </div>
+
+        <div class="result-screen" id="result-screen">
+            <h2>لقد انتهيت من اللعبة!</h2>
+            <p id="final-score"></p>
+            <p id="motivational-message"></p>
+            <div id="answers-review"></div>
+            <button onclick="restartGame()">العب مرة أخرى</button>
+        </div>
+    </div>
+
+    <script>
+        const correctAnswers = {
+            1: { 
+                question: "من أساليب الإخبار بوقوع يوم القيامة:", 
+                answer: "جميع ما سبق" 
+            },
+            2: { 
+                question: "في قوله تعالى: {فَذَرۡهُمۡ یَخُوضُوا۟ وَیَلۡعَبُوا۟...}، تضمنت هذه الآية:", 
+                answer: "العبارة صحيحة" 
+            },
+            3: { 
+                question: "من أدلّة البعث والنشور:", 
+                answer: "الاستدلال على النشأة الأخرى بالنشأة الأولى" 
+            },
+            4: { 
+                question: "﴿أَوَلَيسَ الَّذي خَلَقَ السَّماواتِ...﴾، دلت الآية على:", 
+                answer: "الله الذي خلق الأعظم قادر على خلق ما دونه" 
+            },
+            5: { 
+                question: "﴿وَقَالُوۤا۟ أَءِذَا ضَلَلۡنَا فِی...﴾، المراد بالضلال:", 
+                answer: "تحلل أجسادهم، واختلاطها بتراب الأرض" 
+            },
+            6: { 
+                question: "﴿یَـٰقَوۡمِ ٱعۡبُدُوا۟ ٱللَّهَ وَٱرۡجُوا۟...﴾، قالها:", 
+                answer: "شعيب -عليه السلام-" 
+            },
+            7: { 
+                question: "من الأمثلة الدالة على إحياء الموتى:", 
+                answer: "جميع ما سبق" 
+            },
+            8: { 
+                question: "جميع الكفار عندما يُسألون عن ورودهم النار:", 
+                answer: "العبارة خاطئة" 
+            },
+            9: { 
+                question: "لم تزخر الكتب السماوية بذكر اليوم الآخر سوى القرآن:", 
+                answer: "العبارة خاطئة" 
+            },
+            10: { 
+                question: "انقطاع علائق الأنساب يوم القيامة:", 
+                answer: "من معالم أهوال يوم القيامة" 
+            }
+        };
+
+        let currentQuestion = 1;
+        let score = 0;
+        const userAnswers = {};
+
+        function checkAnswer(questionNumber, answer) {
+            userAnswers[questionNumber] = answer;
+
+            if (answer === correctAnswers[questionNumber].answer) {
+                score++;
+            }
+
+            moveToNextQuestion();
+        }
+
+        function moveToNextQuestion() {
+            const currentCard = document.getElementById(`question${currentQuestion}`);
+            currentCard.classList.remove("active");
+
+            currentQuestion++;
+            const nextCard = document.getElementById(`question${currentQuestion}`);
+
+            if (nextCard) {
+                nextCard.classList.add("active");
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            const resultScreen = document.getElementById("result-screen");
+            resultScreen.style.display = "block";
+
+            const finalScore = document.getElementById("final-score");
+            finalScore.textContent = `لقد حصلت على ${score} من ${Object.keys(correctAnswers).length} إجابات صحيحة.`;
+
+            const motivationalMessage = document.getElementById("motivational-message");
+            if (score === Object.keys(correctAnswers).length) {
+                motivationalMessage.textContent = "ما شاء الله! إجاباتك ممتازة، واصل في طريقك نحو العلم واليقين. 🌟";
+            } else if (score > Object.keys(correctAnswers).length / 2) {
+                motivationalMessage.textContent = "أداء رائع! استمر في السعي لزيادة العلم واليقين. 🚀";
+            } else {
+                motivationalMessage.textContent = "لا بأس، اخطُ خطوة جديدة وستحقق النجاح، فطريق العلم يحتاج للصبر. 🌱";
+            }
+
+            const answersReview = document.getElementById("answers-review");
+            answersReview.innerHTML = Object.keys(correctAnswers).map((questionNumber) => {
+                const userAnswer = userAnswers[questionNumber];
+                const question = correctAnswers[questionNumber].question;
+                const correctAnswer = correctAnswers[questionNumber].answer;
+                const isCorrect = userAnswer === correctAnswer;
+
+                return `
+                    <div class="answer-review ${isCorrect ? "correct" : "incorrect"}">
+                        <p><strong>السؤال:</strong> ${question}</p>
+                        <p><strong>إجابتك:</strong> ${userAnswer || "لم تُجب"}</p>
+                        <p><strong>الإجابة الصحيحة:</strong> ${correctAnswer}</p>
+                    </div>
+                `;
+            }).join("");
+        }
+
+        function restartGame() {
+            score = 0;
+            currentQuestion = 1;
+            Object.keys(userAnswers).forEach((key) => delete userAnswers[key]);
+
+            document.querySelectorAll(".question-card").forEach((card) => {
+                card.classList.remove("active");
+            });
+
+            document.getElementById("result-screen").style.display = "none";
+            document.getElementById("question1").classList.add("active");
+        }
+    </script>
+</body>
+</html>
